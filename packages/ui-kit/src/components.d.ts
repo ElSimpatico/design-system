@@ -6,56 +6,40 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface UiHelloworld {
         /**
           * The first name
          */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "firstName": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLUiHelloworldElement extends Components.UiHelloworld, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLUiHelloworldElement: {
+        prototype: HTMLUiHelloworldElement;
+        new (): HTMLUiHelloworldElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "ui-helloworld": HTMLUiHelloworldElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface UiHelloworld {
         /**
           * The first name
          */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+        "firstName"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "ui-helloworld": UiHelloworld;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "ui-helloworld": LocalJSX.UiHelloworld & JSXBase.HTMLAttributes<HTMLUiHelloworldElement>;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { Config } from '@stencil/core';
+import { sass } from '@stencil/sass';
 import { reactOutputTarget } from '@stencil/react-output-target';
 
 export const config: Config = {
@@ -23,6 +24,7 @@ export const config: Config = {
       proxiesFile: '../ui-kit-react/lib/components/stencil-generated/index.ts',
     }),
   ],
+  plugins: [sass()],
   testing: {
     browserHeadless: 'new',
   },
