@@ -7,4 +7,4 @@ import type { JSX } from 'ui-kit';
 
 
 
-export const MyComponent = /*@__PURE__*/createReactComponent<JSX.MyComponent, HTMLMyComponentElement>('my-component');
+export const UiHelloworld = /*@__PURE__*/createReactComponent<JSX.UiHelloworld, HTMLUiHelloworldElement>('ui-helloworld');
