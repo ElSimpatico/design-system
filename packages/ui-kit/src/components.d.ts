@@ -5,7 +5,27 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ButtonVariantTypes } from "./components/atoms/button/types";
+export { ButtonVariantTypes } from "./components/atoms/button/types";
 export namespace Components {
+    interface UiButton {
+        /**
+          * Specifies the alternative text
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if button is  disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies the type attribute for the native button ("button", "submit", "reset").
+         */
+        "type"?: string;
+        /**
+          * Specfifies the button variant
+         */
+        "variant"?: ButtonVariantTypes;
+    }
     interface UiHelloworld {
         /**
           * The first name
@@ -14,6 +34,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLUiButtonElement extends Components.UiButton, HTMLStencilElement {
+    }
+    var HTMLUiButtonElement: {
+        prototype: HTMLUiButtonElement;
+        new (): HTMLUiButtonElement;
+    };
     interface HTMLUiHelloworldElement extends Components.UiHelloworld, HTMLStencilElement {
     }
     var HTMLUiHelloworldElement: {
@@ -21,10 +47,29 @@ declare global {
         new (): HTMLUiHelloworldElement;
     };
     interface HTMLElementTagNameMap {
+        "ui-button": HTMLUiButtonElement;
         "ui-helloworld": HTMLUiHelloworldElement;
     }
 }
 declare namespace LocalJSX {
+    interface UiButton {
+        /**
+          * Specifies the alternative text
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if button is  disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies the type attribute for the native button ("button", "submit", "reset").
+         */
+        "type"?: string;
+        /**
+          * Specfifies the button variant
+         */
+        "variant"?: ButtonVariantTypes;
+    }
     interface UiHelloworld {
         /**
           * The first name
@@ -32,6 +77,7 @@ declare namespace LocalJSX {
         "firstName"?: string;
     }
     interface IntrinsicElements {
+        "ui-button": UiButton;
         "ui-helloworld": UiHelloworld;
     }
 }
@@ -39,6 +85,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "ui-button": LocalJSX.UiButton & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
             "ui-helloworld": LocalJSX.UiHelloworld & JSXBase.HTMLAttributes<HTMLUiHelloworldElement>;
         }
     }
