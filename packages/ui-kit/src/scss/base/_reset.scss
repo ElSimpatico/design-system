@@ -1,0 +1,36 @@
+html {
+    font-size: 62.5%; //1.6rem -> 16px
+}
+
+body {
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+html,
+body,
+*,
+*::before,
+*::after,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+button,
+caption {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*:focus-visible {
+    @include focusable();
+}
+
+ul {
+    list-style-type: none;
+}

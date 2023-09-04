@@ -1,0 +1,36 @@
+@use '../abstracts/variables';
+
+@mixin _min-breakpoint($breakpoint: 's') {
+    @media (min-width: map.get(variables.$breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @include _min-breakpoint('m') {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @include _min-breakpoint('l') {
+        @content;
+    }
+}
+
+@mixin desktopLarge {
+    @include _min-breakpoint('xl') {
+        @content;
+    }
+}
+
+@mixin focusable() {
+    /* inner indicator */
+    outline: 0.2rem #f9f9f9 solid;
+    outline-offset: 0;
+
+    /* outer indicator */
+    $color: #193146;
+
+    box-shadow: 0 0 0 0.4rem $color;
+}
