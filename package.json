@@ -1,18 +1,23 @@
 {
-  "name": "design-system",
-  "version": "1.0.0",
-  "description": "Example of how to implement design system",
-  "main": "index.js",
-  "repository": "https://github.com/ElSimpatico/design-system.git",
-  "author": "avelascl <avelascl@nttdata.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^20.4.7",
-    "lerna": "^7.1.4",
-    "typescript": "^5.1.6"
-  },
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ]
+    "name": "design-system",
+    "version": "1.0.0",
+    "description": "Example of how to implement design system",
+    "main": "index.js",
+    "repository": "https://github.com/ElSimpatico/design-system.git",
+    "author": "avelascl <avelascl@nttdata.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^20.4.7",
+        "lerna": "^7.1.4",
+        "typescript": "^5.1.6"
+    },
+    "private": true,
+    "scripts": {
+        "build": "lerna run build",
+        "start:app": "lerna run dev --scope=todo-app",
+        "storybook:ui": "lerna run storybook --scope=ui-kit"
+    },
+    "workspaces": [
+        "packages/*"
+    ]
 }
