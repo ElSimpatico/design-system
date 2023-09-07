@@ -1,3 +1,5 @@
+import remarkGfm from 'remark-gfm';
+
 import { join, dirname } from 'path';
 
 /**
@@ -16,6 +18,16 @@ const config = {
         getAbsolutePath('@storybook/addon-essentials'),
         getAbsolutePath('@storybook/addon-interactions'),
         getAbsolutePath('@storybook/addon-a11y'),
+        {
+            name: '@storybook/addon-docs',
+            options: {
+                mdxPluginOptions: {
+                    mdxCompileOptions: {
+                        remarkPlugins: [remarkGfm],
+                    },
+                },
+            },
+        },
     ],
     framework: {
         name: getAbsolutePath('@storybook/html-webpack5'),
