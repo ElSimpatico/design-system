@@ -1,0 +1,64 @@
+:host {
+    display: block;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        &__label {
+            font-size: var(--font-size-input-label, 'inherit');
+            line-height: var(--font-line-height-input-label, 'inherit');
+            font-family: var(--font-family-input-label, 'inherit');
+            margin: var(--spacing-margin-input-label, 0 0 var(--spacing-s) 0);
+            &:empty {
+                margin: 0;
+            }
+        }
+    }
+
+    .field {
+        position: relative;
+        &__input {
+            font-size: var(--font-size-input, 'inherit');
+            line-height: var(--font-line-height-input, 'inherit');
+            font-family: var(--font-family-input, 'inherit');
+            width: 100%;
+            padding: var(
+                --spacing-padding-input,
+                var(--spacing-s) calc(var(--spacing-m) * 2 + 1.6rem)
+                    var(--spacing-s) var(--spacing-m)
+            );
+            border-radius: var(--radius-border-input, 0.2rem);
+            border: var(--size-border-input, 0.1rem) solid;
+            border-color: var(--color-border-input-default, var(--color-grey));
+            background-color: var(--color-white);
+            color: var(--color-black);
+            &::placeholder,
+            &:-ms-input-placeholder {
+                color: var(--color-input-placeholder, #afafaf);
+            }
+            &:focus-visible {
+                @include focusable('action');
+                border-color: var(
+                    --color-border-input-action,
+                    var(--color-action)
+                );
+            }
+        }
+        &__icon {
+            position: absolute;
+            top: var(--spacing-right-input-icon, var(--spacing-s));
+            right: var(--spacing-top-input-icon, var(--spacing-m));
+        }
+    }
+}
+
+:host(.error) {
+    .field {
+        &__input {
+            border-color: var(--color-border-input-error, var(--color-primary));
+            &:focus-visible {
+                @include focusable('error');
+            }
+        }
+    }
+}

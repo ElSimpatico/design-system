@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ButtonVariantTypes } from "./components/atoms/button/types";
-export { ButtonVariantTypes } from "./components/atoms/button/types";
+import { ButtonType, ButtonVariantType } from "./components/atoms/button/types";
+import { InputEventDetail, InputType } from "./components/atoms/input/types";
+export { ButtonType, ButtonVariantType } from "./components/atoms/button/types";
+export { InputEventDetail, InputType } from "./components/atoms/input/types";
 export namespace Components {
     interface UiButton {
         /**
@@ -20,11 +22,11 @@ export namespace Components {
         /**
           * Specifies the type attribute for the native button ("button", "submit", "reset").
          */
-        "type"?: string;
+        "type"?: ButtonType;
         /**
           * Specfifies the button variant
          */
-        "variant"?: ButtonVariantTypes;
+        "variant"?: ButtonVariantType;
     }
     interface UiHelloworld {
         /**
@@ -32,6 +34,60 @@ export namespace Components {
          */
         "firstName": string;
     }
+    interface UiInput {
+        /**
+          * Specifies the alternative text for the label
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if input is disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies if the input state error is enabled
+         */
+        "error"?: boolean;
+        /**
+          * Specifies the native input id
+         */
+        "identifier"?: string;
+        /**
+          * Specifies the text for the label
+         */
+        "label"?: string;
+        /**
+          * Specifies the native input name
+         */
+        "name"?: string;
+        /**
+          * Specifies the hint text to display
+         */
+        "placeholder"?: string;
+        /**
+          * Specifies if the input is read-only
+         */
+        "readonly"?: boolean;
+        /**
+          * Specifies if the input is required
+         */
+        "required"?: boolean;
+        /**
+          * Specifies the input type ("text", "password", "email")
+         */
+        "type"?: InputType;
+        /**
+          * Specifies the input value
+         */
+        "value"?: string;
+    }
+}
+export interface UiButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiButtonElement;
+}
+export interface UiInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiInputElement;
 }
 declare global {
     interface HTMLUiButtonElement extends Components.UiButton, HTMLStencilElement {
@@ -46,9 +102,16 @@ declare global {
         prototype: HTMLUiHelloworldElement;
         new (): HTMLUiHelloworldElement;
     };
+    interface HTMLUiInputElement extends Components.UiInput, HTMLStencilElement {
+    }
+    var HTMLUiInputElement: {
+        prototype: HTMLUiInputElement;
+        new (): HTMLUiInputElement;
+    };
     interface HTMLElementTagNameMap {
         "ui-button": HTMLUiButtonElement;
         "ui-helloworld": HTMLUiHelloworldElement;
+        "ui-input": HTMLUiInputElement;
     }
 }
 declare namespace LocalJSX {
@@ -62,13 +125,17 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * Emmited when button has been clicked
+         */
+        "onButtonClick"?: (event: UiButtonCustomEvent<void>) => void;
+        /**
           * Specifies the type attribute for the native button ("button", "submit", "reset").
          */
-        "type"?: string;
+        "type"?: ButtonType;
         /**
           * Specfifies the button variant
          */
-        "variant"?: ButtonVariantTypes;
+        "variant"?: ButtonVariantType;
     }
     interface UiHelloworld {
         /**
@@ -76,9 +143,68 @@ declare namespace LocalJSX {
          */
         "firstName"?: string;
     }
+    interface UiInput {
+        /**
+          * Specifies the alternative text for the label
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if input is disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies if the input state error is enabled
+         */
+        "error"?: boolean;
+        /**
+          * Specifies the native input id
+         */
+        "identifier"?: string;
+        /**
+          * Specifies the text for the label
+         */
+        "label"?: string;
+        /**
+          * Specifies the native input name
+         */
+        "name"?: string;
+        /**
+          * Emmited when the input loses focus
+         */
+        "onInputBlur"?: (event: UiInputCustomEvent<InputEventDetail>) => void;
+        /**
+          * Emmited when the input has changed
+         */
+        "onInputChange"?: (event: UiInputCustomEvent<InputEventDetail>) => void;
+        /**
+          * Emmited when the input has focus
+         */
+        "onInputFocus"?: (event: UiInputCustomEvent<InputEventDetail>) => void;
+        /**
+          * Specifies the hint text to display
+         */
+        "placeholder"?: string;
+        /**
+          * Specifies if the input is read-only
+         */
+        "readonly"?: boolean;
+        /**
+          * Specifies if the input is required
+         */
+        "required"?: boolean;
+        /**
+          * Specifies the input type ("text", "password", "email")
+         */
+        "type"?: InputType;
+        /**
+          * Specifies the input value
+         */
+        "value"?: string;
+    }
     interface IntrinsicElements {
         "ui-button": UiButton;
         "ui-helloworld": UiHelloworld;
+        "ui-input": UiInput;
     }
 }
 export { LocalJSX as JSX };
@@ -87,6 +213,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ui-button": LocalJSX.UiButton & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
             "ui-helloworld": LocalJSX.UiHelloworld & JSXBase.HTMLAttributes<HTMLUiHelloworldElement>;
+            "ui-input": LocalJSX.UiInput & JSXBase.HTMLAttributes<HTMLUiInputElement>;
         }
     }
 }
