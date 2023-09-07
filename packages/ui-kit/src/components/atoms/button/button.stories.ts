@@ -1,6 +1,8 @@
+import { withActions } from '@storybook/addon-actions/decorator';
+
 import mdx from './button.mdx';
 
-import { ButtonVariants } from './types';
+import { ButtonTypeHTMLAttributte, ButtonVariants } from './types';
 
 export default {
     title: 'Components/Atoms/Button',
@@ -8,7 +10,11 @@ export default {
         docs: {
             page: mdx,
         },
+        actions: {
+            handles: ['buttonClick'],
+        },
     },
+    decorators: [withActions],
 };
 
 const Template = (args) => `
@@ -19,12 +25,10 @@ const Template = (args) => `
 
 export const Button = Template.bind({});
 
-console.log(ButtonVariants);
-
 Button.args = {
     accessibleLabel: 'Call to action',
     disabled: false,
-    type: 'button',
+    type: ButtonTypeHTMLAttributte.Button,
     variant: ButtonVariants.Primary,
 };
 
@@ -32,5 +36,9 @@ Button.argTypes = {
     variant: {
         control: { type: 'select' },
         options: Object.values(ButtonVariants),
+    },
+    type: {
+        control: { type: 'select' },
+        options: Object.values(ButtonTypeHTMLAttributte),
     },
 };

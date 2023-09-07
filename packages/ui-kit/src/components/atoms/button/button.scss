@@ -1,10 +1,10 @@
 %ds-button {
-    border-radius: var(--radius-border-button, 0.4rem);
-    padding: var(--spacing-padding-button, 0.8rem 1.6rem);
-    border: var(--size-border-button, 0.1rem) solid;
     font-size: var(--font-size-button, inherit);
     line-height: var(--font-line-height-button, inherit);
     font-family: var(--font-family-button, inherit);
+    border-radius: var(--radius-border-button, 0.4rem);
+    padding: var(--spacing-padding-button, 0.8rem 1.6rem);
+    border: var(--size-border-button, 0.1rem) solid;
     cursor: pointer;
     &:disabled {
         cursor: not-allowed;
@@ -21,23 +21,44 @@
 
 :host(.primary) {
     button {
-        background-color: var(--color-primary);
-        border-color: var(--color-primary);
-        color: var(--color-white);
+        background-color: var(
+            --color-background-button-primary-default,
+            var(--color-primary)
+        );
+        border-color: var(
+            --color-border-button-primary-default,
+            var(--color-primary)
+        );
+        color: var(--color-text-button-primary-default, var(--color-white));
         &:hover:not(:disabled) {
-            background-color: var(--color-primary-hover);
-            border-color: var(--color-primary-hover);
+            background-color: var(
+                --color-background-button-primary-hover,
+                var(--color-primary-hover)
+            );
+            border-color: var(
+                --color-border-button-primary-hover,
+                var(--color-primary-hover)
+            );
         }
     }
 }
 
 :host(.alternative) {
     button {
-        background-color: var(--color-white);
-        color: var(--color-black);
-        border-color: var(--color-grey);
+        background-color: var(
+            --color-background-button-alternative-default,
+            var(--color-white)
+        );
+        border-color: var(
+            --color-border-button-alternative-default,
+            var(--color-grey)
+        );
+        color: var(--color-text-button-alternative-default, var(--color-black));
         &:hover:not(:disabled) {
-            border-color: var(--color-black);
+            border-color: var(
+                --color-border-button-alternative-hover,
+                var(--color-black)
+            );
         }
     }
 }

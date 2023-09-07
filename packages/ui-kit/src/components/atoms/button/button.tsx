@@ -1,5 +1,5 @@
-import { Component, Prop, h, Host } from '@stencil/core';
-import { ButtonVariantTypes } from './types';
+import { Component, Prop, h, Host, EventEmitter, Event } from '@stencil/core';
+import { ButtonVariantType, ButtonType } from './types';
 
 @Component({
     tag: 'ui-button',
@@ -21,12 +21,19 @@ export class Button {
     /**
      * Specifies the type attribute for the native button ("button", "submit", "reset").
      */
-    @Prop() type?: string = 'button';
+    @Prop() type?: ButtonType = 'button';
 
     /**
      * Specfifies the button variant
      */
-    @Prop() variant?: ButtonVariantTypes = 'primary';
+    @Prop() variant?: ButtonVariantType = 'primary';
+
+    /** Emmited when button has been clicked */
+    @Event() buttonClick: EventEmitter<void>;
+
+    private onClickHandler = (): void => {
+        this.buttonClick.emit();
+    };
 
     classNames = (): Record<string, boolean> => {
         return {
@@ -38,7 +45,7 @@ export class Button {
     render() {
         return (
             <Host class={this.classNames()}>
-                <button disabled={this.disabled}>
+                <button disabled={this.disabled} onClick={this.onClickHandler}>
                     <slot></slot>
                 </button>
             </Host>
