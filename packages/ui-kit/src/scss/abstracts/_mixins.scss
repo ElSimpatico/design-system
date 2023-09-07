@@ -24,13 +24,19 @@
     }
 }
 
-@mixin focusable() {
+@mixin focusable($state: '') {
     /* inner indicator */
     outline: 0.2rem #f9f9f9 solid;
     outline-offset: 0;
 
     /* outer indicator */
     $color: #193146;
+
+    @if ($state == 'action') {
+        $color: #{var(--color-action)};
+    } @else if ($state == 'error') {
+        $color: #{var(--color-primary)};
+    }
 
     box-shadow: 0 0 0 0.4rem $color;
 }
