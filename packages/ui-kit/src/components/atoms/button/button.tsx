@@ -45,7 +45,11 @@ export class Button {
     render() {
         return (
             <Host class={this.classNames()}>
-                <button disabled={this.disabled} onClick={this.onClickHandler}>
+                <button
+                    disabled={this.disabled}
+                    type={this.type}
+                    onClick={this.onClickHandler}
+                >
                     <slot></slot>
                 </button>
             </Host>
