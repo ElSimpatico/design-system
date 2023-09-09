@@ -6,8 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ButtonType, ButtonVariantType } from "./components/atoms/button/types";
+import { CheckboxEventDetail } from "./components/atoms/checkbox/types";
 import { InputEventDetail, InputType } from "./components/atoms/input/types";
 export { ButtonType, ButtonVariantType } from "./components/atoms/button/types";
+export { CheckboxEventDetail } from "./components/atoms/checkbox/types";
 export { InputEventDetail, InputType } from "./components/atoms/input/types";
 export namespace Components {
     interface UiButton {
@@ -27,6 +29,36 @@ export namespace Components {
           * Specfifies the button variant
          */
         "variant"?: ButtonVariantType;
+    }
+    interface UiCheckbox {
+        /**
+          * Specifies the alternative text
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if the input is checked
+         */
+        "checked"?: boolean;
+        /**
+          * Specifies if checkbox is  disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies the native input id
+         */
+        "identifier"?: string;
+        /**
+          * Specifies the native input name
+         */
+        "name"?: string;
+        /**
+          * Specifies if the input is required
+         */
+        "required"?: boolean;
+        /**
+          * Specifies the input value
+         */
+        "value"?: string;
     }
     interface UiHelloworld {
         /**
@@ -85,6 +117,10 @@ export interface UiButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiButtonElement;
 }
+export interface UiCheckboxCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiCheckboxElement;
+}
 export interface UiInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiInputElement;
@@ -95,6 +131,12 @@ declare global {
     var HTMLUiButtonElement: {
         prototype: HTMLUiButtonElement;
         new (): HTMLUiButtonElement;
+    };
+    interface HTMLUiCheckboxElement extends Components.UiCheckbox, HTMLStencilElement {
+    }
+    var HTMLUiCheckboxElement: {
+        prototype: HTMLUiCheckboxElement;
+        new (): HTMLUiCheckboxElement;
     };
     interface HTMLUiHelloworldElement extends Components.UiHelloworld, HTMLStencilElement {
     }
@@ -110,6 +152,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "ui-button": HTMLUiButtonElement;
+        "ui-checkbox": HTMLUiCheckboxElement;
         "ui-helloworld": HTMLUiHelloworldElement;
         "ui-input": HTMLUiInputElement;
     }
@@ -136,6 +179,48 @@ declare namespace LocalJSX {
           * Specfifies the button variant
          */
         "variant"?: ButtonVariantType;
+    }
+    interface UiCheckbox {
+        /**
+          * Specifies the alternative text
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if the input is checked
+         */
+        "checked"?: boolean;
+        /**
+          * Specifies if checkbox is  disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies the native input id
+         */
+        "identifier"?: string;
+        /**
+          * Specifies the native input name
+         */
+        "name"?: string;
+        /**
+          * Emmited when the checkbox loses focus
+         */
+        "onCheckboxBlur"?: (event: UiCheckboxCustomEvent<CheckboxEventDetail>) => void;
+        /**
+          * Emmited when the checkbox has changed
+         */
+        "onCheckboxChange"?: (event: UiCheckboxCustomEvent<CheckboxEventDetail>) => void;
+        /**
+          * Emmited when the checkbox has focus
+         */
+        "onCheckboxFocus"?: (event: UiCheckboxCustomEvent<CheckboxEventDetail>) => void;
+        /**
+          * Specifies if the input is required
+         */
+        "required"?: boolean;
+        /**
+          * Specifies the input value
+         */
+        "value"?: string;
     }
     interface UiHelloworld {
         /**
@@ -203,6 +288,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "ui-button": UiButton;
+        "ui-checkbox": UiCheckbox;
         "ui-helloworld": UiHelloworld;
         "ui-input": UiInput;
     }
@@ -212,6 +298,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "ui-button": LocalJSX.UiButton & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
+            "ui-checkbox": LocalJSX.UiCheckbox & JSXBase.HTMLAttributes<HTMLUiCheckboxElement>;
             "ui-helloworld": LocalJSX.UiHelloworld & JSXBase.HTMLAttributes<HTMLUiHelloworldElement>;
             "ui-input": LocalJSX.UiInput & JSXBase.HTMLAttributes<HTMLUiInputElement>;
         }
