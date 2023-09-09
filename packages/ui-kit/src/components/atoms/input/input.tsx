@@ -1,4 +1,6 @@
 import { Component, Prop, h, Host, Event, EventEmitter } from '@stencil/core';
+import { nanoid } from 'nanoid';
+
 import { InputEventDetail, InputType } from './types';
 
 import { ErrorIcon } from './resources/error-icon';
@@ -20,7 +22,7 @@ export class Input {
     @Prop() error?: boolean;
 
     /** Specifies the native input id */
-    @Prop() identifier?: string;
+    @Prop() identifier?: string = nanoid();
 
     /** Specifies the text for the label */
     @Prop() label?: string;

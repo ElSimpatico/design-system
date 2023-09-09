@@ -12,7 +12,7 @@
 | `accessibleLabel` | `accessible-label` | Specifies the alternative text for the label           | `string`                          | `undefined` |
 | `disabled`        | `disabled`         | Specifies if input is disabled                         | `boolean`                         | `false`     |
 | `error`           | `error`            | Specifies if the input state error is enabled          | `boolean`                         | `undefined` |
-| `identifier`      | `identifier`       | Specifies the native input id                          | `string`                          | `undefined` |
+| `identifier`      | `identifier`       | Specifies the native input id                          | `string`                          | `nanoid()`  |
 | `label`           | `label`            | Specifies the text for the label                       | `string`                          | `undefined` |
 | `name`            | `name`             | Specifies the native input name                        | `string`                          | `undefined` |
 | `placeholder`     | `placeholder`      | Specifies the hint text to display                     | `string`                          | `undefined` |
