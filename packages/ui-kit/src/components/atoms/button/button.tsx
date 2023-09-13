@@ -46,6 +46,7 @@ export class Button {
         return (
             <Host class={this.classNames()}>
                 <button
+                    aria-label={this.accessibleLabel}
                     disabled={this.disabled}
                     type={this.type}
                     onClick={this.onClickHandler}
