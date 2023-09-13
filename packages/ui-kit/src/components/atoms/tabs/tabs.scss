@@ -1,0 +1,29 @@
+:host {
+    display: block;
+
+    --spacing-margin-tab: 0
+        var(--spacing-margin-tabs-horizontal, var(--spacing-xl)) 0 0;
+    --color-background-tab-indicator-bottom: var(
+        --color-tabs-indicator,
+        var(--color-action)
+    );
+    --color-background-tab-indicator-left: none;
+
+    .tab-list {
+        display: flex;
+    }
+}
+
+:host(.vertical) {
+    display: flex;
+    --spacing-margin-tab: var(--spacing-margin-tabs-vertical, 0rem);
+    --spacing-padding-tab: var(--spacing-padding-tabs-vertical, 1.1rem 1.5rem);
+    --color-background-tab-indicator-bottom: none;
+    --color-background-tab-indicator-left: var(
+        --color-tabs-indicator,
+        var(--color-action)
+    );
+    .tab-list {
+        flex-direction: column;
+    }
+}
