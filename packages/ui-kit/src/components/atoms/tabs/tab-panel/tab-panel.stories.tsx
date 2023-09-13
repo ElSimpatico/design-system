@@ -16,7 +16,7 @@ export default {
 };
 
 const Template = (args) => `
-<ui-tab-panel accesible-labelled-by="${args.accessibleControls}"
+<ui-tab-panel accessible-labelled-by="${args.accessibleLabelledBy}"
     identifier="${args.identifier}">
     <div>Content</div>
 </ui-tab-panel>
