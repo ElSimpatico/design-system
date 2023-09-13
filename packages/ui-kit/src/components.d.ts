@@ -112,6 +112,48 @@ export namespace Components {
          */
         "value"?: string;
     }
+    interface UiTab {
+        /**
+          * Specifies the aria-controls attribute for the native button
+         */
+        "accessibleControls"?: string;
+        /**
+          * Specifies the alternative text
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if the tab is disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies the native button id
+         */
+        "identifier"?: string;
+        /**
+          * Specifies if the tab is selected
+         */
+        "selected"?: boolean;
+    }
+    interface UiTabPanel {
+        /**
+          * Specifies id's that indicate alternative labels elements
+         */
+        "accessibleLabelledBy"?: string;
+        /**
+          * Specifies the id of the tabpanel element
+         */
+        "identifier"?: string;
+    }
+    interface UiTabs {
+        /**
+          * Specifies the identifier for the initial selected tab
+         */
+        "selectedTab"?: string;
+        /**
+          * Specifies if tab list is displayed vertically
+         */
+        "vertical"?: boolean;
+    }
 }
 export interface UiButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -124,6 +166,10 @@ export interface UiCheckboxCustomEvent<T> extends CustomEvent<T> {
 export interface UiInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLUiInputElement;
+}
+export interface UiTabCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUiTabElement;
 }
 declare global {
     interface HTMLUiButtonElement extends Components.UiButton, HTMLStencilElement {
@@ -150,11 +196,32 @@ declare global {
         prototype: HTMLUiInputElement;
         new (): HTMLUiInputElement;
     };
+    interface HTMLUiTabElement extends Components.UiTab, HTMLStencilElement {
+    }
+    var HTMLUiTabElement: {
+        prototype: HTMLUiTabElement;
+        new (): HTMLUiTabElement;
+    };
+    interface HTMLUiTabPanelElement extends Components.UiTabPanel, HTMLStencilElement {
+    }
+    var HTMLUiTabPanelElement: {
+        prototype: HTMLUiTabPanelElement;
+        new (): HTMLUiTabPanelElement;
+    };
+    interface HTMLUiTabsElement extends Components.UiTabs, HTMLStencilElement {
+    }
+    var HTMLUiTabsElement: {
+        prototype: HTMLUiTabsElement;
+        new (): HTMLUiTabsElement;
+    };
     interface HTMLElementTagNameMap {
         "ui-button": HTMLUiButtonElement;
         "ui-checkbox": HTMLUiCheckboxElement;
         "ui-helloworld": HTMLUiHelloworldElement;
         "ui-input": HTMLUiInputElement;
+        "ui-tab": HTMLUiTabElement;
+        "ui-tab-panel": HTMLUiTabPanelElement;
+        "ui-tabs": HTMLUiTabsElement;
     }
 }
 declare namespace LocalJSX {
@@ -286,11 +353,60 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface UiTab {
+        /**
+          * Specifies the aria-controls attribute for the native button
+         */
+        "accessibleControls"?: string;
+        /**
+          * Specifies the alternative text
+         */
+        "accessibleLabel"?: string;
+        /**
+          * Specifies if the tab is disabled
+         */
+        "disabled"?: boolean;
+        /**
+          * Specifies the native button id
+         */
+        "identifier"?: string;
+        /**
+          * Emmited when the button has been clicked
+         */
+        "onTabSelect"?: (event: UiTabCustomEvent<void>) => void;
+        /**
+          * Specifies if the tab is selected
+         */
+        "selected"?: boolean;
+    }
+    interface UiTabPanel {
+        /**
+          * Specifies id's that indicate alternative labels elements
+         */
+        "accessibleLabelledBy"?: string;
+        /**
+          * Specifies the id of the tabpanel element
+         */
+        "identifier"?: string;
+    }
+    interface UiTabs {
+        /**
+          * Specifies the identifier for the initial selected tab
+         */
+        "selectedTab"?: string;
+        /**
+          * Specifies if tab list is displayed vertically
+         */
+        "vertical"?: boolean;
+    }
     interface IntrinsicElements {
         "ui-button": UiButton;
         "ui-checkbox": UiCheckbox;
         "ui-helloworld": UiHelloworld;
         "ui-input": UiInput;
+        "ui-tab": UiTab;
+        "ui-tab-panel": UiTabPanel;
+        "ui-tabs": UiTabs;
     }
 }
 export { LocalJSX as JSX };
@@ -301,6 +417,9 @@ declare module "@stencil/core" {
             "ui-checkbox": LocalJSX.UiCheckbox & JSXBase.HTMLAttributes<HTMLUiCheckboxElement>;
             "ui-helloworld": LocalJSX.UiHelloworld & JSXBase.HTMLAttributes<HTMLUiHelloworldElement>;
             "ui-input": LocalJSX.UiInput & JSXBase.HTMLAttributes<HTMLUiInputElement>;
+            "ui-tab": LocalJSX.UiTab & JSXBase.HTMLAttributes<HTMLUiTabElement>;
+            "ui-tab-panel": LocalJSX.UiTabPanel & JSXBase.HTMLAttributes<HTMLUiTabPanelElement>;
+            "ui-tabs": LocalJSX.UiTabs & JSXBase.HTMLAttributes<HTMLUiTabsElement>;
         }
     }
 }
