@@ -1,0 +1,38 @@
+.container-app {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 0 2.4rem;
+    &__section {
+        padding: 2.4rem 0;
+    }
+}
+
+.todo-container {
+    display: flex;
+    align-items: center;
+    &__input-text {
+        width: 100%;
+        margin: 0 1.6rem 0 0;
+    }
+    &__button-action {
+        flex: 0 0 auto;
+        &:not(:last-child) {
+            margin: 0 1.6rem 0 0;
+        }
+    }
+}
+
+.panel-content {
+    padding: 1.6rem 0;
+}
+
+.todo-list {
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin: 0 0 0.8rem 0;
+        background-color: var(--color-grey);
+        padding: 0.8rem;
+    }
+}
