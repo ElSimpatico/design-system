@@ -1,0 +1,10 @@
+.todo-list {
+    &__item {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin: 0 0 var(--spacing-s) 0;
+        background-color: var(--color-grey);
+        padding: var(--spacing-s);
+    }
+}

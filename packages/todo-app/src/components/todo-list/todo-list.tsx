@@ -3,6 +3,8 @@ import { UiButton, UiCheckbox } from 'ui-kit-react';
 
 import { Todo, TodoListProps } from './todo-list-props';
 
+import './todo-list.scss';
+
 export function TodoList(props: TodoListProps): ReactElement<TodoListProps> {
     const { type = 'all', todos, onDeleteTodo, onCheckTodo } = props;
 
@@ -38,6 +40,7 @@ export function TodoList(props: TodoListProps): ReactElement<TodoListProps> {
                                     className="todo-list__item"
                                 >
                                     <UiCheckbox
+                                        accessibleLabel="Check todo"
                                         checked={todo.complete}
                                         onCheckboxChange={() =>
                                             onCheckTodo(todo.id)
@@ -46,6 +49,7 @@ export function TodoList(props: TodoListProps): ReactElement<TodoListProps> {
                                         <span>{todo.name}</span>
                                     </UiCheckbox>
                                     <UiButton
+                                        accessibleLabel={`Delete todo ${todo.name}`}
                                         onButtonClick={(): void =>
                                             onDeleteTodo(todo.id)
                                         }

@@ -1,26 +1,21 @@
-import { useCallback, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { InputEventDetail, UiInputCustomEvent } from 'ui-kit';
-import {
-    defineCustomElements,
-    UiButton,
-    UiInput,
-    UiTabs,
-    UiTab,
-    UiTabPanel,
-} from 'ui-kit-react';
-
-import 'ui-kit/dist/ui-kit/ui-kit.css';
+import { UiButton, UiInput, UiTabs, UiTab, UiTabPanel } from 'ui-kit-react';
 
 import { Todo, TodoList } from './components';
+import { LocalStorageSingleton } from './core/utils';
 
 import './App.scss';
 
-defineCustomElements();
-
-function App() {
+export function App(): ReactElement {
+    const TODOS_KEY = 'todos';
     const [todoName, setTodoName] = useState<string>('');
-    const [todoList, setTodoList] = useState<Todo[]>([]);
+    const [todoList, setTodoList] = useState<Todo[]>();
+
+    const storage = useMemo(() => {
+        return LocalStorageSingleton.getInstance();
+    }, []);
 
     const onInputChangeHandler = useCallback(
         (event: UiInputCustomEvent<InputEventDetail>): void => {
@@ -29,12 +24,13 @@ function App() {
         [],
     );
 
-    const onButtonClickHandler = useCallback(() => {
-        const repeatedTasks = todoList.filter((task: Todo) =>
+    const onAddTodo = useCallback(() => {
+        const newTodoList = todoList || [];
+        const repeatedTasks = newTodoList.filter((task: Todo) =>
             task.name.match(`${todoName}(\\s\\(\\d*\\))?`),
         );
 
-        const newTask: Todo = {
+        const newTodo: Todo = {
             id: Date.now().toString(),
             complete: false,
             name:
@@ -43,34 +39,46 @@ function App() {
                     : `${todoName} (${repeatedTasks.length})`,
         };
 
-        setTodoList([...todoList, newTask]);
-    }, [todoList, todoName]);
+        setTodoList([...newTodoList, newTodo]);
+    }, [todoList, todoName, setTodoList]);
 
-    const onDeleteTaskHandler = useCallback(
+    const onDeleteTodoHandler = useCallback(
         (id: string) => {
-            const newTaskList = todoList.filter(
+            const newTodoList = (todoList || []).filter(
                 (currentTodo: Todo) => currentTodo.id !== id,
             );
-            setTodoList([...newTaskList]);
+            setTodoList(newTodoList);
         },
-        [todoList],
+        [todoList, setTodoList],
     );
+
     const onCheckTodoHandler = useCallback(
         (id: string) => {
-            const newTaskList = todoList.map((currrentTodo: Todo) => {
+            const newTodoList = (todoList || []).map((currrentTodo: Todo) => {
                 if (currrentTodo.id === id) {
                     currrentTodo.complete = !currrentTodo.complete;
                 }
                 return currrentTodo;
             });
-            setTodoList([...newTaskList]);
+            setTodoList(newTodoList);
         },
-        [todoList],
+        [todoList, setTodoList],
     );
 
     const onRemoveAll = useCallback(() => {
         setTodoList([]);
-    }, []);
+    }, [setTodoList]);
+
+    useEffect(() => {
+        const todoList = storage.get<Todo[]>(TODOS_KEY);
+        setTodoList(todoList ? [...todoList] : []);
+    }, [storage]);
+
+    useEffect(() => {
+        if (todoList) {
+            storage.set(TODOS_KEY, todoList);
+        }
+    }, [todoList, storage]);
 
     return (
         <>
@@ -81,15 +89,15 @@ function App() {
                         <UiInput
                             class="todo-container__input-text"
                             type="text"
-                            placeholder="Enter the task name"
-                            accessibleLabel="Task"
+                            placeholder="Enter the todo name"
+                            accessibleLabel="Enter the todo name"
                             value={todoName}
                             onInputChange={onInputChangeHandler}
                         ></UiInput>
                         <UiButton
                             class="todo-container__button-action"
-                            accessibleLabel="Add the new task"
-                            onButtonClick={onButtonClickHandler}
+                            accessibleLabel="Add the new todo"
+                            onButtonClick={onAddTodo}
                         >
                             Add
                         </UiButton>
@@ -97,7 +105,7 @@ function App() {
                             class="todo-container__button-action"
                             accessibleLabel="Remove all todos"
                             variant="alternative"
-                            disabled={todoList.length === 0}
+                            disabled={(todoList || []).length === 0}
                             onButtonClick={onRemoveAll}
                         >
                             Remove all
@@ -107,7 +115,7 @@ function App() {
                 <UiTabs>
                     <UiTab
                         slot="tab"
-                        accessibleLabel="All tasks"
+                        accessibleLabel="All todos"
                         accessibleControls="all-panel"
                         identifier="all-tab"
                     >
@@ -115,7 +123,7 @@ function App() {
                     </UiTab>
                     <UiTab
                         slot="tab"
-                        accessibleLabel="Incomplete tasks"
+                        accessibleLabel="Incomplete todos"
                         accessibleControls="incomplete-panel"
                         identifier="incomplete-tab"
                     >
@@ -123,7 +131,7 @@ function App() {
                     </UiTab>
                     <UiTab
                         slot="tab"
-                        accessibleLabel="Complete tasks"
+                        accessibleLabel="Complete todos"
                         accessibleControls="complete-panel"
                         identifier="complete-tab"
                     >
@@ -137,9 +145,9 @@ function App() {
                     >
                         <div className="panel-content">
                             <TodoList
-                                todos={todoList}
+                                todos={todoList || []}
                                 onCheckTodo={onCheckTodoHandler}
-                                onDeleteTodo={onDeleteTaskHandler}
+                                onDeleteTodo={onDeleteTodoHandler}
                             ></TodoList>
                         </div>
                     </UiTabPanel>
@@ -151,9 +159,9 @@ function App() {
                         <div className="panel-content">
                             <TodoList
                                 type="incomplete"
-                                todos={todoList}
+                                todos={todoList || []}
                                 onCheckTodo={onCheckTodoHandler}
-                                onDeleteTodo={onDeleteTaskHandler}
+                                onDeleteTodo={onDeleteTodoHandler}
                             ></TodoList>
                         </div>
                     </UiTabPanel>
@@ -165,9 +173,9 @@ function App() {
                         <div className="panel-content">
                             <TodoList
                                 type="complete"
-                                todos={todoList}
+                                todos={todoList || []}
                                 onCheckTodo={onCheckTodoHandler}
-                                onDeleteTodo={onDeleteTaskHandler}
+                                onDeleteTodo={onDeleteTodoHandler}
                             ></TodoList>
                         </div>
                     </UiTabPanel>
@@ -176,5 +184,3 @@ function App() {
         </>
     );
 }
-
-export default App;
