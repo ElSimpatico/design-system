@@ -9,6 +9,16 @@ export const config: Config = {
         {
             type: 'dist',
             esmLoaderPath: '../loader',
+            copy: [
+                {
+                    src: 'assets',
+                    dest: 'assets',
+                },
+                {
+                    src: 'scss',
+                    dest: 'scss',
+                },
+            ],
         },
         {
             type: 'dist-custom-elements',
@@ -36,6 +46,7 @@ export const config: Config = {
             ],
         }),
     ],
+
     testing: {
         browserHeadless: 'new',
     },

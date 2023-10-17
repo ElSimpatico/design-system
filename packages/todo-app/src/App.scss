@@ -1,3 +1,5 @@
+@import 'ui-kit/dist/ui-kit/scss/abstracts/_mixins.scss';
+
 .container-app {
     max-width: 60rem;
     margin: 0 auto;
@@ -9,15 +11,30 @@
 
 .todo-container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+
     &__input-text {
         width: 100%;
-        margin: 0 var(--spacing-m) 0 0;
+        margin: 0 0 var(--spacing-m) 0;
     }
     &__button-action {
-        flex: 0 0 auto;
+        width: 100%;
         &:not(:last-child) {
+            margin: 0 0 var(--spacing-m) 0;
+        }
+    }
+    @include desktop {
+        flex-direction: row;
+        align-items: center;
+        &__input-text {
             margin: 0 var(--spacing-m) 0 0;
+        }
+        &__button-action {
+            width: auto;
+            flex: 0 0 auto;
+            &:not(:last-child) {
+                margin: 0 var(--spacing-m) 0 0;
+            }
         }
     }
 }

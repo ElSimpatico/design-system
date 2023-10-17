@@ -84,7 +84,7 @@ export function App(): ReactElement {
         <>
             <div className="container-app">
                 <section className="container-app__section">
-                    <h2 className="container-app__section-title">To do list</h2>
+                    <h3 className="container-app__section-title">To do list</h3>
                     <div className="container-app__section-todo todo-container">
                         <UiInput
                             class="todo-container__input-text"
