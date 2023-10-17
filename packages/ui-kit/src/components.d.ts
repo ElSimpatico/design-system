@@ -60,12 +60,6 @@ export namespace Components {
          */
         "value"?: string;
     }
-    interface UiHelloworld {
-        /**
-          * The first name
-         */
-        "firstName": string;
-    }
     interface UiInput {
         /**
           * Specifies the alternative text for the label
@@ -184,12 +178,6 @@ declare global {
         prototype: HTMLUiCheckboxElement;
         new (): HTMLUiCheckboxElement;
     };
-    interface HTMLUiHelloworldElement extends Components.UiHelloworld, HTMLStencilElement {
-    }
-    var HTMLUiHelloworldElement: {
-        prototype: HTMLUiHelloworldElement;
-        new (): HTMLUiHelloworldElement;
-    };
     interface HTMLUiInputElement extends Components.UiInput, HTMLStencilElement {
     }
     var HTMLUiInputElement: {
@@ -217,7 +205,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "ui-button": HTMLUiButtonElement;
         "ui-checkbox": HTMLUiCheckboxElement;
-        "ui-helloworld": HTMLUiHelloworldElement;
         "ui-input": HTMLUiInputElement;
         "ui-tab": HTMLUiTabElement;
         "ui-tab-panel": HTMLUiTabPanelElement;
@@ -288,12 +275,6 @@ declare namespace LocalJSX {
           * Specifies the input value
          */
         "value"?: string;
-    }
-    interface UiHelloworld {
-        /**
-          * The first name
-         */
-        "firstName"?: string;
     }
     interface UiInput {
         /**
@@ -402,7 +383,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "ui-button": UiButton;
         "ui-checkbox": UiCheckbox;
-        "ui-helloworld": UiHelloworld;
         "ui-input": UiInput;
         "ui-tab": UiTab;
         "ui-tab-panel": UiTabPanel;
@@ -415,7 +395,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "ui-button": LocalJSX.UiButton & JSXBase.HTMLAttributes<HTMLUiButtonElement>;
             "ui-checkbox": LocalJSX.UiCheckbox & JSXBase.HTMLAttributes<HTMLUiCheckboxElement>;
-            "ui-helloworld": LocalJSX.UiHelloworld & JSXBase.HTMLAttributes<HTMLUiHelloworldElement>;
             "ui-input": LocalJSX.UiInput & JSXBase.HTMLAttributes<HTMLUiInputElement>;
             "ui-tab": LocalJSX.UiTab & JSXBase.HTMLAttributes<HTMLUiTabElement>;
             "ui-tab-panel": LocalJSX.UiTabPanel & JSXBase.HTMLAttributes<HTMLUiTabPanelElement>;
