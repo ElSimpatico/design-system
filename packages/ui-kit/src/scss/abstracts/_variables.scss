@@ -1,10 +1,13 @@
 $breakpoints: (
-  // mobile
-  s: 360px,
-  // tablet
-  m: 768px,
-  // desktop
-  l: 1024px,
-  // desktop extra
-  xl: 1200px
+    // mobile
+    s: 360px,
+    // tablet
+    m: 768px,
+    // desktop
+    l: 1024px,
+    // desktop extra
+    xl: 1200px
 );
+
+$TypoRegular: TypoRegular, sans-serif;
+$TypoSemiBold: TypoSemiBold, sans-serif;
